@@ -59,13 +59,8 @@ class NewsletterYAML extends Newsletter
 					$stylesheet = TL_ROOT . '/' . $stylesheet;
 				if (file_exists($stylesheet))
 				{
-					$buffer = file_get_contents($stylesheet);
-					# Reduce and compress css
-					$buffer = preg_replace('@/\*.*\*/@Us', '', $buffer);
-					$buffer = preg_replace('/\s{2,}/s', ' ', $buffer);
-					
 					$css .= '<style type="text/css">' . "\n";
-					$css .= trim($buffer) . "\n";
+					$css .= trim(file_get_contents($stylesheet)) . "\n";
 					$css .= '</style>' . "\n";
 				}
 			}
