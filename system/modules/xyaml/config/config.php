@@ -34,7 +34,7 @@ $GLOBALS['xYAML'] = array_merge(
 	array(
 		'absolute_yaml_path' => '/usr/lib/www/yaml',
 		'yaml_path' => '/_yaml',
-		'css' => array('css/basemod.css', 'css/content.css', 'css/forms.css', 'css/print.css'),
+		'css' => array('css/basemod.css', 'css/content.css', 'css/print.css'),
 		'ie6css' => array('css/ie6patches.css'),
 		'ie7css' => array('css/ie7patches.css'),
 		'ie8css' => array('css/ie8patches.css'),
