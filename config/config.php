@@ -28,18 +28,23 @@
 
 
 #$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][] = array('xYAML', 'outputFrontendTemplate');
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('NewsletterYAMLInsertTags', 'replaceInsertTags');
 $GLOBALS['TL_PTY']['regular'] = 'PageRegularYAML';
 $GLOBALS['xYAML'] = array_merge(
 	array(
+		'absolute_yaml_path' => '/usr/lib/www/yaml',
 		'yaml_path' => '/_yaml',
 		'css' => array('css/basemod.css', 'css/content.css', 'css/forms.css', 'css/print.css'),
 		'ie6css' => array('css/ie6patches.css'),
 		'ie7css' => array('css/ie7patches.css'),
 		'ie8css' => array('css/ie8patches.css'),
+		'newsletter' => array('css/content.css', 'css/newsletter.css'),
 		'wrapper_css_id' => array('#page_margins'),
 		'left_css_id' => array('#col1'),
 		'right_css_id' => array('#col2'),
 		'main_css_id' => array('#col3')		
 	),
 	is_array($GLOBALS['xYAML']) ? $GLOBALS['xYAML'] : array());
+$GLOBALS['BE_MOD']['content']['newsletter']['send'][0] = 'NewsletterYAML';
+
 ?>
