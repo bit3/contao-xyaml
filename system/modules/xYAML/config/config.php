@@ -31,23 +31,6 @@
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('NewsletterYAMLInsertTags', 'replaceInsertTags');
 $GLOBALS['TL_PTY']['regular'] = 'PageRegularYAML';
 
-$GLOBALS['xYAML']['absolute_yaml_path'] = '/usr/share/yamlcss/yaml';
-$GLOBALS['xYAML']['yaml_css'] = array(
-	array('src' => '/yaml/core/slim_base.css'),
-	array('src' => '/yaml/core/slim_iehacks.css', 'condition' => 'lte IE 7')
-);
-$GLOBALS['xYAML']['style_css'] = array(
-	array('src' => 'css/basemod.css'),
-	array('src' => 'css/content.css'),
-	array('src' => 'css/print.css', 'media' => 'print'),
-	array('src' => 'css/ie6patches.css', 'condition' => 'IE 6'),
-	array('src' => 'css/ie7patches.css', 'condition' => 'IE 7'),
-	array('src' => 'css/ie8patches.css', 'condition' => 'IE 8')
-);
-$GLOBALS['xYAML']['newsletter_css'] = array(
-	array('src' => 'css/content.css'),
-	array('src' => 'css/newsletter.css')
-);
 $GLOBALS['xYAML']['wrapper_css_selector'] = array('#page_margins');
 $GLOBALS['xYAML']['header_css_selector'] = array('#header');
 $GLOBALS['xYAML']['left_css_selector'] = array('#col1');

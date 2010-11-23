@@ -138,12 +138,6 @@ class PageRegularYAML extends PageRegular
 			}
 		}
 		
-		// Include basic style sheets
-		$this->Template->framework .= xYAML::buildCSSLinks($GLOBALS['xYAML']['yaml_css']);
-		
-		// Include additional style sheets
-		$this->Template->framework .= xYAML::buildCSSLinks($GLOBALS['xYAML']['style_css']);
-			
 		// Add layout specific CSS
 		$this->Template->framework .= $templateFramework->parse()."\n";
 	}

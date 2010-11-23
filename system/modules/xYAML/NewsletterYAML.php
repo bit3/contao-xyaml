@@ -50,56 +50,8 @@ class NewsletterYAML extends Newsletter
 	protected function sendNewsletter(Email $objEmail, Database_Result $objNewsletter, $arrRecipient, $text, $html, $css)
 	{
 		NewsletterYAMLInsertTags::$currentNewsletter = $objNewsletter;
-		
-		// Prepare text content
-		$objEmail->text = $this->parseSimpleTokens($text, $arrRecipient);
-
-		// Add HTML content
-		if (!$objNewsletter->sendText)
-		{
-			$stylesheets = array_merge(
-				array($GLOBALS['xYAML']['absolute_yaml_path'] . '/core/slim_base.css'),
-				$GLOBALS['xYAML']['newsletter_css']
-			);
-			// Add style sheets
-			foreach ($stylesheets as $stylesheet) {
-				$src = is_array($stylesheet) ? $stylesheet['src'] : $stylesheet;
-				$type = is_array($stylesheet) && !empty($stylesheet['type']) ? $stylesheet['type'] : 'text/css';
-				$media = is_array($stylesheet) && !empty($stylesheet['media']) ? $stylesheet['media'] : '';
-				if ($src[0] != '/')
-					$src = TL_ROOT . '/' . $src;
-				if (!file_exists($src)) {
-					$src = dirname($src) . '/src/' . basename($src);
-				}
-				if (file_exists($src))
-				{
-					$css .= '<style type="' . $type . '"' . (empty($media) ? '' : ' media="' . $media . '"') . '>' . "\n";
-					$css .= trim(file_get_contents($src)) . "\n";
-					$css .= '</style>' . "\n";
-				}
-			}
-			
-			// Get mail template
-			$objTemplate = new FrontendTemplate((strlen($objNewsletter->template) ? $objNewsletter->template : 'mail_default'));
-
-			$objTemplate->title = $objNewsletter->subject;
-			$objTemplate->body = $html;
-			$objTemplate->charset = $GLOBALS['TL_CONFIG']['characterSet'];
-			$objTemplate->css = $this->replaceInsertTags($css);
-
-			// Parse template
-			$objEmail->html = $this->replaceInsertTags($this->parseSimpleTokens($objTemplate->parse(), $arrRecipient));
-			$objEmail->imageDir = TL_ROOT . '/';
-		}
-
-		$objEmail->sendTo($arrRecipient['email']);
-
-		// Rejected recipients
-		if (count($objEmail->failures))
-		{
-			$_SESSION['REJECTED_RECIPIENTS'][] = $arrRecipient['email'];
-		}
-		
+		print_r($arrRecipient);
+		parent::sendNewsletter($objEmail, $objNewsletter, $arrRecipient, $text, $html, $css);
 		NewsletterYAMLInsertTags::$currentNewsletter = null;
 	}
 }
