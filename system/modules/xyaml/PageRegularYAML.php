@@ -125,8 +125,8 @@ class PageRegularYAML extends PageRegular
 %5$s { margin-left: %1$s; margin-right: %2$s; }
 ', $mainMarginLeft, $mainMarginRight,
 		$this->getSelector('left_css_selector'),
-		$this->getSelector('main_css_selector'),
-		$this->getSelector('right_css_selector'));
+		$this->getSelector('right_css_selector'),
+		$this->getSelector('main_css_selector'));
 		
 		// Footer
 		if ($objLayout->footer)
