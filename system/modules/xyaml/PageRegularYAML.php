@@ -37,14 +37,6 @@
  */
 class PageRegularYAML extends PageRegular
 {
-	protected function getSelector($name) {
-		if (is_array($GLOBALS['xYAML'][$name])) {
-			return implode(', ', $GLOBALS['xYAML'][$name]);
-		} else {
-			return $GLOBALS['xYAML'][$name];
-		}
-	}
-	
 	/**
 	 * Create a new template
 	 * @param object
@@ -79,7 +71,7 @@ class PageRegularYAML extends PageRegular
 		$arrSizeRight = false;
 		
 		// Wrapper
-		$templateFramework->wrapperSelector = $this->getSelector('wrapper_css_selector');
+		$templateFramework->wrapperSelector = xYAML::getSelector('wrapper_css_selector');
 		if ($objLayout->static)
 		{
 			$arrSize = deserialize($objLayout->width);
@@ -88,7 +80,7 @@ class PageRegularYAML extends PageRegular
 		}
 
 		// Header
-		$templateFramework->headerSelector = $this->getSelector('header_css_selector');
+		$templateFramework->headerSelector = xYAML::getSelector('header_css_selector');
 		if ($objLayout->header)
 		{
 			$arrSize = deserialize($objLayout->headerHeight);
@@ -100,7 +92,7 @@ class PageRegularYAML extends PageRegular
 		}
 
 		// Left column
-		$templateFramework->leftSelector = $this->getSelector('left_css_selector');
+		$templateFramework->leftSelector = xYAML::getSelector('left_css_selector');
 		$templateFramework->mainMarginLeft = 0;
 		if ($objLayout->cols == '2cll' || $objLayout->cols == '3cl')
 		{
@@ -113,7 +105,7 @@ class PageRegularYAML extends PageRegular
 		}
 
 		// Right column
-		$templateFramework->rightSelector = $this->getSelector('right_css_selector');
+		$templateFramework->rightSelector = xYAML::getSelector('right_css_selector');
 		$templateFramework->mainMarginRight = 0;
 		if ($objLayout->cols == '2clr' || $objLayout->cols == '3cl')
 		{
@@ -132,10 +124,10 @@ class PageRegularYAML extends PageRegular
 		}
 
 		// Main column
-		$templateFramework->mainSelector = $this->getSelector('main_css_selector');
+		$templateFramework->mainSelector = xYAML::getSelector('main_css_selector');
 		
 		// Footer
-		$templateFramework->footerSelector = $this->getSelector('footer_css_selector');
+		$templateFramework->footerSelector = xYAML::getSelector('footer_css_selector');
 		if ($objLayout->footer)
 		{
 			$arrSize = deserialize($objLayout->footerHeight);
@@ -147,23 +139,13 @@ class PageRegularYAML extends PageRegular
 		}
 		
 		// Include basic style sheets
-		$this->Template->framework .= sprintf('<link rel="stylesheet" href="%s/core/base.css" type="text/css" />',
-			$GLOBALS['xYAML']['yaml_path'])."\n";
-		
-		// Add layout specific CSS
-		$this->Template->framework .= $templateFramework->parse();
+		$this->Template->framework .= xYAML::buildCSSLinks($GLOBALS['xYAML']['yaml_css']);
 		
 		// Include additional style sheets
-		foreach ($GLOBALS['xYAML']['css'] as $css) {
-			$this->Template->framework .= sprintf('<link rel="stylesheet" href="%s" type="text/css" />', $css)."\n";
-		}
-		$this->Template->framework .= sprintf('<!--[if lte IE 7]><link rel="stylesheet" href="%s/core/iehacks.css" type="text/css" /><![endif]-->',
-			$GLOBALS['xYAML']['yaml_path'])."\n";
-		for ($i=6; $i<=8; $i++) {
-			foreach ($GLOBALS['xYAML']['ie'.$i.'css'] as $css) {
-				$this->Template->framework .= sprintf('<!--[if IE %d]><link rel="stylesheet" href="%s" type="text/css" /><![endif]-->', $i, $css)."\n";
-			}
-		}
+		$this->Template->framework .= xYAML::buildCSSLinks($GLOBALS['xYAML']['style_css']);
+			
+		// Add layout specific CSS
+		$this->Template->framework .= $templateFramework->parse()."\n";
 	}
 }
 

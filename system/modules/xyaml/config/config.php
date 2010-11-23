@@ -33,13 +33,25 @@ $GLOBALS['TL_PTY']['regular'] = 'PageRegularYAML';
 $GLOBALS['xYAML'] = array_merge(
 	array(
 		'absolute_yaml_path' => '/usr/lib/www/yaml',
-		'yaml_path' => '/_yaml',
+	
+		'yaml_css' => array(
+			array('src' => '/_yaml/core/base.css'),
+			array('src' => '/_yaml/core/iehacks.css', 'condition' => 'lte IE 7')
+		),
 		
-		'css' => array('css/basemod.css', 'css/content.css', 'css/print.css'),
-		'ie6css' => array('css/ie6patches.css'),
-		'ie7css' => array('css/ie7patches.css'),
-		'ie8css' => array('css/ie8patches.css'),
-		'newsletter' => array('css/content.css', 'css/newsletter.css'),
+		'style_css' => array(
+			array('src' => 'css/basemod.css'),
+			array('src' => 'css/content.css'),
+			array('src' => 'css/print.css', 'media' => 'print'),
+			array('src' => 'css/ie6patches.css', 'condition' => 'IE 6'),
+			array('src' => 'css/ie7patches.css', 'condition' => 'IE 7'),
+			array('src' => 'css/ie8patches.css', 'condition' => 'IE 8')
+		),
+		
+		'newsletter_css' => array(
+			array('src' => 'css/content.css'),
+			array('src' => 'css/newsletter.css')
+		),
 		
 		'wrapper_css_selector' => array('#page_margins'),
 		'header_css_selector' => array('#header'),

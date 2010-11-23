@@ -52,14 +52,20 @@ class NewsletterYAML extends Newsletter
 		NewsletterYAMLInsertTags::$currentNewsletter = $objNewsletter;
 		
 		if (!$objNewsletter->sendText) {
-			$stylesheets = array_merge(array($GLOBALS['xYAML']['absolute_yaml_path'] . '/core/base.css'), $GLOBALS['xYAML']['newsletter']);
+			$stylesheets = array_merge(
+				array($GLOBALS['xYAML']['absolute_yaml_path'] . '/core/base.css'),
+				$GLOBALS['xYAML']['newsletter']
+			);
 			// Add style sheets
 			foreach ($stylesheets as $stylesheet) {
-				if ($stylesheet[0] != '/')
-					$stylesheet = TL_ROOT . '/' . $stylesheet;
-				if (file_exists($stylesheet))
+				$src = is_array($stylesheet) ? $stylesheet['src'] : $stylesheet;
+				$type = is_array($stylesheet) && !empty($stylesheet['type']) ? $stylesheet['type'] : 'text/css';
+				$media = is_array($stylesheet) && !empty($stylesheet['media']) ? $stylesheet['media'] : '';
+				if ($src[0] != '/')
+					$src = TL_ROOT . '/' . $src;
+				if (file_exists($src))
 				{
-					$css .= '<style type="text/css">' . "\n";
+					$css .= '<style type="' . $type . '"' . (empty($media) ? '' : ' media="' . $media . '"') . '>' . "\n";
 					$css .= trim(file_get_contents($stylesheet)) . "\n";
 					$css .= '</style>' . "\n";
 				}

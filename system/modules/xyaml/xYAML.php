@@ -36,6 +36,45 @@
  * @package    xYAML 
  */
 class xYAML {
+	public static function getSelector($name) {
+		if (is_array($GLOBALS['xYAML'][$name])) {
+			return implode(', ', $GLOBALS['xYAML'][$name]);
+		} else {
+			return $GLOBALS['xYAML'][$name];
+		}
+	}
+	
+	public static function getCSSSources($array) {
+		$src = array();
+		foreach ($array as $item) {
+			if (is_array($item)) {
+				$src[] = $item['src'];
+			} else {
+				$src[] = $item;
+			}
+		}
+		return $src;
+	}
+	
+	public static function buildCSSLinks($array) {
+		$links = '';
+		foreach ($array as $item) {
+			if (is_array($item)) {
+				$link = sprintf('<link rel="stylesheet" href="%s" type="%s"'.(empty($item['media']) ? '' : ' media="%s"').' />',
+					$item['src'],
+					empty($item['type']) ? 'text/css' : $item['type'],
+					empty($item['media']) ? '' : $item['media']);
+				if (!empty($item['condition'])) {
+					$link = sprintf('<!--[if %s]>%s<![endif]-->', $item['condition'], $link);
+				}
+				$links .= $link."\n";
+			} else {
+				$links .= sprintf('<link rel="stylesheet" href="%s" type="text/css" />', $item)."\n";
+			}
+		}
+		return $links;
+	}
+	
 	public function replaceInvisibleClass($matches) {
 		return $matches[1] . str_replace('invisible', 'hideme', $matches[2]) . $matches[3];
 	}
