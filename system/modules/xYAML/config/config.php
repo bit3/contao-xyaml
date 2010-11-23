@@ -31,10 +31,10 @@
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('NewsletterYAMLInsertTags', 'replaceInsertTags');
 $GLOBALS['TL_PTY']['regular'] = 'PageRegularYAML';
 
-$GLOBALS['xYAML']['absolute_yaml_path'] = '/usr/lib/www/yaml';
+$GLOBALS['xYAML']['absolute_yaml_path'] = '/usr/share/yamlcss/yaml';
 $GLOBALS['xYAML']['yaml_css'] = array(
-	array('src' => '/_yaml/core/slim_base.css'),
-	array('src' => '/_yaml/core/slim_iehacks.css', 'condition' => 'lte IE 7')
+	array('src' => '/yaml/core/slim_base.css'),
+	array('src' => '/yaml/core/slim_iehacks.css', 'condition' => 'lte IE 7')
 );
 $GLOBALS['xYAML']['style_css'] = array(
 	array('src' => 'css/basemod.css'),
