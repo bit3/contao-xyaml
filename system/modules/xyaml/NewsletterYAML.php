@@ -51,10 +51,15 @@ class NewsletterYAML extends Newsletter
 	{
 		NewsletterYAMLInsertTags::$currentNewsletter = $objNewsletter;
 		
-		if (!$objNewsletter->sendText) {
+		// Prepare text content
+		$objEmail->text = $this->parseSimpleTokens($text, $arrRecipient);
+
+		// Add HTML content
+		if (!$objNewsletter->sendText)
+		{
 			$stylesheets = array_merge(
-				array($GLOBALS['xYAML']['absolute_yaml_path'] . '/core/base.css'),
-				$GLOBALS['xYAML']['newsletter']
+				array($GLOBALS['xYAML']['absolute_yaml_path'] . '/core/slim_base.css'),
+				$GLOBALS['xYAML']['newsletter_css']
 			);
 			// Add style sheets
 			foreach ($stylesheets as $stylesheet) {
@@ -63,31 +68,27 @@ class NewsletterYAML extends Newsletter
 				$media = is_array($stylesheet) && !empty($stylesheet['media']) ? $stylesheet['media'] : '';
 				if ($src[0] != '/')
 					$src = TL_ROOT . '/' . $src;
+				if (!file_exists($src)) {
+					$src = dirname($src) . '/src/' . basename($src);
+				}
 				if (file_exists($src))
 				{
 					$css .= '<style type="' . $type . '"' . (empty($media) ? '' : ' media="' . $media . '"') . '>' . "\n";
-					$css .= trim(file_get_contents($stylesheet)) . "\n";
+					$css .= trim(file_get_contents($src)) . "\n";
 					$css .= '</style>' . "\n";
 				}
 			}
-		}
-		
-		// Prepare text content
-		$objEmail->text = $this->parseSimpleTokens($text, $arrRecipient);
-
-		// Add HTML content
-		if (!$objNewsletter->sendText)
-		{
+			
 			// Get mail template
 			$objTemplate = new FrontendTemplate((strlen($objNewsletter->template) ? $objNewsletter->template : 'mail_default'));
 
 			$objTemplate->title = $objNewsletter->subject;
-			$objTemplate->body = $this->parseSimpleTokens($html, $arrRecipient);
+			$objTemplate->body = $html;
 			$objTemplate->charset = $GLOBALS['TL_CONFIG']['characterSet'];
-			$objTemplate->css = $css;
+			$objTemplate->css = $this->replaceInsertTags($css);
 
 			// Parse template
-			$objEmail->html = $this->replaceInsertTags($objTemplate->parse());
+			$objEmail->html = $this->replaceInsertTags($this->parseSimpleTokens($objTemplate->parse(), $arrRecipient));
 			$objEmail->imageDir = TL_ROOT . '/';
 		}
 
