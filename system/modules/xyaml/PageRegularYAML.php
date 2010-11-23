@@ -44,6 +44,16 @@ class PageRegularYAML extends PageRegular
 	 */
 	protected function createTemplate(Database_Result $objPage, Database_Result $objLayout)
 	{
+		// HOOK: modify the page or layout object
+		if (isset($GLOBALS['TL_HOOKS']['createTemplate']) && is_array($GLOBALS['TL_HOOKS']['createTemplate']))
+		{
+			foreach ($GLOBALS['TL_HOOKS']['createTemplate'] as $callback)
+			{
+				$this->import($callback[0]);
+				$this->$callback[0]->$callback[1]($objPage, $objLayout, $this);
+			}
+		}
+		
 		parent::createTemplate($objPage, $objLayout);
 		$this->Template->framework = '';
 		
