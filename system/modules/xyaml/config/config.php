@@ -34,11 +34,13 @@ $GLOBALS['xYAML'] = array_merge(
 	array(
 		'absolute_yaml_path' => '/usr/lib/www/yaml',
 		'yaml_path' => '/_yaml',
+		
 		'css' => array('css/basemod.css', 'css/content.css', 'css/print.css'),
 		'ie6css' => array('css/ie6patches.css'),
 		'ie7css' => array('css/ie7patches.css'),
 		'ie8css' => array('css/ie8patches.css'),
 		'newsletter' => array('css/content.css', 'css/newsletter.css'),
+		
 		'wrapper_css_selector' => array('#page_margins'),
 		'header_css_selector' => array('#header'),
 		'left_css_selector' => array('#col1'),

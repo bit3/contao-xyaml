@@ -44,6 +44,7 @@ class PageRegularYAML extends PageRegular
 			return $GLOBALS['xYAML'][$name];
 		}
 	}
+	
 	/**
 	 * Create a new template
 	 * @param object
@@ -72,83 +73,85 @@ class PageRegularYAML extends PageRegular
 			'right'  => '0 0 0 auto'
 		);
 
-		$strFramework = '';
-
+		$templateFramework = new FrontendTemplate('xyaml_framework');
+		
+		$arrSizeLeft = false;
+		$arrSizeRight = false;
+		
 		// Wrapper
+		$templateFramework->wrapperSelector = $this->getSelector('wrapper_css_selector');
 		if ($objLayout->static)
 		{
 			$arrSize = deserialize($objLayout->width);
-			$strFramework .= sprintf('%s { width:%s; margin:%s; }', $this->getSelector('wrapper_css_selector'), $arrSize['value'] . $arrSize['unit'], $arrMargin[$objLayout->align]) . "\n";
+			$templateFramework->wrapperWidth = $arrSize['value'] . $arrSize['unit'];
+			$templateFramework->wrapperMargins = $arrMargin[$objLayout->align];
 		}
 
 		// Header
+		$templateFramework->headerSelector = $this->getSelector('header_css_selector');
 		if ($objLayout->header)
 		{
 			$arrSize = deserialize($objLayout->headerHeight);
 
 			if ($arrSize['value'] > 0)
 			{
-				$strFramework .= sprintf('%s { height:%s; }', $this->getSelector('header_css_selector'), $arrSize['value'] . $arrSize['unit']) . "\n";
+				$templateFramework->headerHeight = $arrSize['value'] . $arrSize['unit'];
 			}
 		}
 
-		$strMain = '';
-
-		$mainMarginLeft = 0;
-		$mainMarginRight = 0;
-		
 		// Left column
+		$templateFramework->leftSelector = $this->getSelector('left_css_selector');
+		$templateFramework->mainMarginLeft = 0;
 		if ($objLayout->cols == '2cll' || $objLayout->cols == '3cl')
 		{
-			$arrSize = deserialize($objLayout->widthLeft);
+			$arrSizeLeft = deserialize($objLayout->widthLeft);
 
-			if ($arrSize['value'] > 0)
+			if ($arrSizeLeft['value'] > 0)
 			{
-				$mainMarginLeft = $arrSize['value'] . $arrSize['unit'];
+				$templateFramework->mainMarginLeft = $arrSizeLeft['value'] . $arrSizeLeft['unit'];
 			}
 		}
 
 		// Right column
+		$templateFramework->rightSelector = $this->getSelector('right_css_selector');
+		$templateFramework->mainMarginRight = 0;
 		if ($objLayout->cols == '2clr' || $objLayout->cols == '3cl')
 		{
-			$arrSize = deserialize($objLayout->widthRight);
+			$arrSizeRight = deserialize($objLayout->widthRight);
 
-			if ($arrSize['value'] > 0)
+			if ($arrSizeRight['value'] > 0)
 			{
-				$mainMarginRight = $arrSize['value'] . $arrSize['unit'];
+				$templateFramework->mainMarginRight = $arrSizeRight['value'] . $arrSizeRight['unit'];
 			}
+		}
+		
+		// Both column
+		if ($arrSizeLeft && $arrSizeRight && $arrSizeLeft['unit'] == $arrSizeRight['unit'])
+		{
+			$templateFramework->mainMarginBoth = ($arrSizeLeft['value'] + $arrSizeRight['value']) + $arrSizeRight['unit'];
 		}
 
 		// Main column
-		$strFramework .= sprintf('%3$s { width: %1$s; }
-%4$s { width: %2$s; }
-%5$s { margin-left: %1$s; margin-right: %2$s; }
-', $mainMarginLeft, $mainMarginRight,
-		$this->getSelector('left_css_selector'),
-		$this->getSelector('right_css_selector'),
-		$this->getSelector('main_css_selector'));
+		$templateFramework->mainSelector = $this->getSelector('main_css_selector');
 		
 		// Footer
+		$templateFramework->footerSelector = $this->getSelector('footer_css_selector');
 		if ($objLayout->footer)
 		{
 			$arrSize = deserialize($objLayout->footerHeight);
 
 			if ($arrSize['value'] > 0)
 			{
-				$strFramework .= sprintf('%s { height:%s; }', $this->getSelector('footer_css_selector'), $arrSize['value'] . $arrSize['unit']) . "\n";
+				$templateFramework->footerHeight = $arrSize['value'] . $arrSize['unit'];
 			}
 		}
-
+		
 		// Include basic style sheets
 		$this->Template->framework .= sprintf('<link rel="stylesheet" href="%s/core/base.css" type="text/css" />',
 			$GLOBALS['xYAML']['yaml_path'])."\n";
 		
 		// Add layout specific CSS
-		$this->Template->framework .= '<style type="text/css" media="screen">' . "\n";
-		$this->Template->framework .= '<!--/*--><![CDATA[/*><!--*/' . "\n";
-		$this->Template->framework .= $strFramework;
-		$this->Template->framework .= '/*]]>*/-->' . "\n";
-		$this->Template->framework .= '</style>' . "\n";
+		$this->Template->framework .= $templateFramework->parse();
 		
 		// Include additional style sheets
 		foreach ($GLOBALS['xYAML']['css'] as $css) {
