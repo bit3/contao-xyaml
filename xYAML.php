@@ -27,107 +27,21 @@
  */
 
 
+/**
+ * Class xYAML
+ *
+ * Post-Process the page output to make final modifications.
+ * @copyright  InfinityLabs - Olck & Lins GbR 2009 
+ * @author     Tristan Lins <tristan.lins@infinitylabs.de>
+ * @package    xYAML 
+ */
 class xYAML {
-	public function replaceMainCSS($matches) {
-		$left = '0';
-		$right = '0';
-		$margins = explode(';', $matches[1]);
-		foreach ($margins as $margin) {
-			$margin = explode(':', $margin, 2);
-			if (count($margin) == 2)  {
-				switch (trim($margin[0])) {
-				case 'margin-left':  $left  = trim($margin[1]); break;
-				case 'margin-right': $right = trim($margin[1]); break;
-				}
-			}
-		}
-		return sprintf('#main { margin-left: %s; margin-right: %s; }', $left, $right);
-	}
-	
-	public function buildCSS($class, $style = '') {
-		switch ($class) {
-			case 'main':
-				$left = '0';
-				$right = '0';
-				$margins = explode(';', $style);
-				foreach ($margins as $margin) {
-					$margin = explode(':', $margin, 2);
-					if (count($margin) == 2)  {
-						switch (trim($margin[0])) {
-						case 'margin-left':  $left  = trim($margin[1]); break;
-						case 'margin-right': $right = trim($margin[1]); break;
-						}
-					}
-				}
-				$style = sprintf('margin-left:%s; margin-right:%s;', $left, $right);
-				break;
-		}
-				
-		if (isset($GLOBALS['xYAML'][$class.'_css_id'])) {
-			$class = $GLOBALS['xYAML'][$class.'_css_id'];
-			if (is_array($class))
-				$class = implode(', ', $class);
-		} else {
-			$class = '#'.$class;
-		}
-		return sprintf("%s { %s }\n", $class, $style);
-	}
-	
-	public function replaceCSS($matches) {
-		$css = $this->generateCssList();
-		$css .= '<style type="text/css" media="screen">
-<!--/*--><![CDATA[/*><!--*/
-';
-		preg_match_all('/#(.*) \\{(.*)\\}/U', $matches[1], $cssMatches, PREG_SET_ORDER);
-		$classes = array();
-		foreach ($cssMatches as $cssMatch) {
-			$class = trim($cssMatch[1]);
-			$style = trim($cssMatch[2]);
-			$classes[] = $class;
-			$css .= $this->buildCSS($class, $style);
-		}
-		if (!in_array('main', $classes)) {
-			$css .= $this->buildCSS('main');
-		}
-		$css .= '/*]]>*/-->
-</style>
-';
-		return $css;
-	}
-	
 	public function replaceInvisibleClass($matches) {
 		return $matches[1] . str_replace('invisible', 'hideme', $matches[2]) . $matches[3];
 	}
 	
-	public function generateCssList() {
-		$html = sprintf('<link rel="stylesheet" href="%s/core/base.css" type="text/css" />',
-			$GLOBALS['xYAML']['yaml_path'])."\n";
-		foreach ($GLOBALS['xYAML']['css'] as $css) {
-			$html .= sprintf('<link rel="stylesheet" href="%s" type="text/css" />', $css)."\n";
-		}
-		$html .= sprintf('<!--[if lte IE 7]><link rel="stylesheet" href="%s/core/iehacks.css" type="text/css" /><![endif]-->',
-			$GLOBALS['xYAML']['yaml_path'])."\n";
-		for ($i=6; $i<=8; $i++) {
-			foreach ($GLOBALS['xYAML']['ie'.$i.'css'] as $css) {
-				$html .= sprintf('<!--[if IE %d]><link rel="stylesheet" href="%s" type="text/css" /><![endif]-->', $i, $css)."\n";
-			}
-		}
-		return $html;
-	}
-	
 	public function outputFrontendTemplate($strContent, $strTemplate) {
 		if ($strTemplate == 'fe_page') {
-			$strContent = preg_replace_callback('#<style type="text/css" media="screen">(.*\\#wrapper.*)</style>#sU',
-				array(&$this, 'replaceCSS'),
-				$strContent);
-			$strContent = str_replace(
-				array(
-					'<link rel="stylesheet" href="system/typolight.css" type="text/css" media="screen" />',
-					'<!--[if lte IE 7]><link rel="stylesheet" href="system/iefixes.css" type="text/css" media="screen" /><![endif]-->'),
-				array(
-					'',
-					''),
-				$strContent);
 			$strContent = preg_replace_callback(
 				'|(class=["\'])(.*?invisible.*?)(["\'])|', 
 				array(&$this, 'replaceInvisibleClass'),
