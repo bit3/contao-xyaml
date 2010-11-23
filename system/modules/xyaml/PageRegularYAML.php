@@ -37,6 +37,13 @@
  */
 class PageRegularYAML extends PageRegular
 {
+	protected function getSelector($name) {
+		if (is_array($GLOBALS['xYAML'][$name])) {
+			return implode(', ', $GLOBALS['xYAML'][$name]);
+		} else {
+			return $GLOBALS['xYAML'][$name];
+		}
+	}
 	/**
 	 * Create a new template
 	 * @param object
@@ -71,7 +78,7 @@ class PageRegularYAML extends PageRegular
 		if ($objLayout->static)
 		{
 			$arrSize = deserialize($objLayout->width);
-			$strFramework .= sprintf('#page_margins { width:%s; margin:%s; }', $arrSize['value'] . $arrSize['unit'], $arrMargin[$objLayout->align]) . "\n";
+			$strFramework .= sprintf('%s { width:%s; margin:%s; }', $this->getSelector('wrapper_css_selector'), $arrSize['value'] . $arrSize['unit'], $arrMargin[$objLayout->align]) . "\n";
 		}
 
 		// Header
@@ -81,7 +88,7 @@ class PageRegularYAML extends PageRegular
 
 			if ($arrSize['value'] > 0)
 			{
-				$strFramework .= sprintf('#header { height:%s; }', $arrSize['value'] . $arrSize['unit']) . "\n";
+				$strFramework .= sprintf('%s { height:%s; }', $this->getSelector('header_css_selector'), $arrSize['value'] . $arrSize['unit']) . "\n";
 			}
 		}
 
@@ -113,10 +120,13 @@ class PageRegularYAML extends PageRegular
 		}
 
 		// Main column
-		$strFramework .= sprintf('#col1 { width: %1$s; }
-#col2 { width: %2$s; }
-#col3 { margin-left: %1$s; margin-right: %2$s; }
-', $mainMarginLeft, $mainMarginRight);
+		$strFramework .= sprintf('%3$s { width: %1$s; }
+%4$s { width: %2$s; }
+%5$s { margin-left: %1$s; margin-right: %2$s; }
+', $mainMarginLeft, $mainMarginRight,
+		$this->getSelector('left_css_selector'),
+		$this->getSelector('main_css_selector'),
+		$this->getSelector('right_css_selector'));
 		
 		// Footer
 		if ($objLayout->footer)
@@ -125,7 +135,7 @@ class PageRegularYAML extends PageRegular
 
 			if ($arrSize['value'] > 0)
 			{
-				$strFramework .= sprintf('#footer { height:%s; }', $arrSize['value'] . $arrSize['unit']) . "\n";
+				$strFramework .= sprintf('%s { height:%s; }', $this->getSelector('footer_css_selector'), $arrSize['value'] . $arrSize['unit']) . "\n";
 			}
 		}
 

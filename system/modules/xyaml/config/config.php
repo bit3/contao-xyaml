@@ -39,10 +39,12 @@ $GLOBALS['xYAML'] = array_merge(
 		'ie7css' => array('css/ie7patches.css'),
 		'ie8css' => array('css/ie8patches.css'),
 		'newsletter' => array('css/content.css', 'css/newsletter.css'),
-		'wrapper_css_id' => array('#page_margins'),
-		'left_css_id' => array('#col1'),
-		'right_css_id' => array('#col2'),
-		'main_css_id' => array('#col3')		
+		'wrapper_css_selector' => array('#page_margins'),
+		'header_css_selector' => array('#header'),
+		'left_css_selector' => array('#col1'),
+		'right_css_selector' => array('#col2'),
+		'main_css_selector' => array('#col3'),
+		'footer_css_selector' => array('#footer')
 	),
 	is_array($GLOBALS['xYAML']) ? $GLOBALS['xYAML'] : array());
 $GLOBALS['BE_MOD']['content']['newsletter']['send'][0] = 'NewsletterYAML';
