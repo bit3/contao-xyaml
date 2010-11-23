@@ -27,7 +27,7 @@
  */
 
 
-$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][] = array('xYAML', 'outputFrontendTemplate');
+#$GLOBALS['TL_HOOKS']['outputFrontendTemplate'][] = array('xYAML', 'outputFrontendTemplate');
 $GLOBALS['TL_PTY']['regular'] = 'PageRegularYAML';
 $GLOBALS['xYAML'] = array_merge(
 	array(

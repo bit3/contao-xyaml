@@ -42,10 +42,12 @@ class xYAML {
 	
 	public function outputFrontendTemplate($strContent, $strTemplate) {
 		if ($strTemplate == 'fe_page') {
+			/*
 			$strContent = preg_replace_callback(
 				'|(class=["\'])(.*?invisible.*?)(["\'])|', 
 				array(&$this, 'replaceInvisibleClass'),
 				$strContent);
+			*/
 		}
 		return $strContent;
 	}
