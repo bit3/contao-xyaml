@@ -119,16 +119,18 @@ class PageRegularYAML extends PageRegular
 			}
 		}
 
+		// Include basic style sheets
+		$this->Template->framework .= sprintf('<link rel="stylesheet" href="%s/core/base.css" type="text/css" />',
+			$GLOBALS['xYAML']['yaml_path'])."\n";
+		
 		// Add layout specific CSS
 		$this->Template->framework .= '<style type="text/css" media="screen">' . "\n";
 		$this->Template->framework .= '<!--/*--><![CDATA[/*><!--*/' . "\n";
 		$this->Template->framework .= $strFramework;
 		$this->Template->framework .= '/*]]>*/-->' . "\n";
 		$this->Template->framework .= '</style>' . "\n";
-
-		// Include basic style sheets
-		$this->Template->framework .= sprintf('<link rel="stylesheet" href="%s/core/base.css" type="text/css" />',
-			$GLOBALS['xYAML']['yaml_path'])."\n";
+		
+		// Include additional style sheets
 		foreach ($GLOBALS['xYAML']['css'] as $css) {
 			$this->Template->framework .= sprintf('<link rel="stylesheet" href="%s" type="text/css" />', $css)."\n";
 		}
