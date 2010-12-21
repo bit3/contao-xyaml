@@ -77,6 +77,8 @@ class PageRegularYAML extends PageRegular
 		{
 			$arrSize = deserialize($objLayout->width);
 			$templateFramework->wrapperWidth = $arrSize['value'] . $arrSize['unit'];
+			$templateFramework->wrapperWidthValue = $arrSize['value'];
+			$templateFramework->wrapperWidthUnit = $arrSize['unit'];
 			$templateFramework->wrapperMargins = $arrMargin[$objLayout->align];
 		}
 
@@ -89,6 +91,8 @@ class PageRegularYAML extends PageRegular
 			if ($arrSize['value'] > 0)
 			{
 				$templateFramework->headerHeight = $arrSize['value'] . $arrSize['unit'];
+				$templateFramework->headerHeightValue = $arrSize['value'];
+				$templateFramework->headerHeightUnit = $arrSize['unit'];
 			}
 		}
 
@@ -102,6 +106,8 @@ class PageRegularYAML extends PageRegular
 			if ($arrSizeLeft['value'] > 0)
 			{
 				$templateFramework->mainMarginLeft = $arrSizeLeft['value'] . $arrSizeLeft['unit'];
+				$templateFramework->mainMarginLeftValue = $arrSizeLeft['value'];
+				$templateFramework->mainMarginLeftUnit = $arrSizeLeft['unit'];
 			}
 		}
 
@@ -115,6 +121,8 @@ class PageRegularYAML extends PageRegular
 			if ($arrSizeRight['value'] > 0)
 			{
 				$templateFramework->mainMarginRight = $arrSizeRight['value'] . $arrSizeRight['unit'];
+				$templateFramework->mainMarginRightValue = $arrSizeRight['value'];
+				$templateFramework->mainMarginRightUnit = $arrSizeRight['unit'];
 			}
 		}
 		
@@ -122,6 +130,8 @@ class PageRegularYAML extends PageRegular
 		if ($arrSizeLeft && $arrSizeRight && $arrSizeLeft['unit'] == $arrSizeRight['unit'])
 		{
 			$templateFramework->mainMarginBoth = ($arrSizeLeft['value'] + $arrSizeRight['value']) + $arrSizeRight['unit'];
+			$templateFramework->mainMarginBothValue = ($arrSizeLeft['value'] + $arrSizeRight['value']);
+			$templateFramework->mainMarginBothUnit = $arrSizeRight['unit'];
 		}
 
 		// Main column
@@ -136,6 +146,8 @@ class PageRegularYAML extends PageRegular
 			if ($arrSize['value'] > 0)
 			{
 				$templateFramework->footerHeight = $arrSize['value'] . $arrSize['unit'];
+				$templateFramework->footerHeightValue = $arrSize['value'];
+				$templateFramework->footerHeightUnit = $arrSize['unit'];
 			}
 		}
 		
