@@ -34,7 +34,6 @@
 
 
 /**
- * HOOKs
+ * Fields
  */
-$GLOBALS['TL_HOOKS']['generateFrameworkCss'][] = array('xYAML', 'hookGenerateFrameworkCss');
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('xYAML', 'hookGeneratePage');
+$GLOBALS['TL_LANG']['tl_layout']['xyaml']  = array('YAML aktivieren', 'Aktiviert YAML Support für dieses Layout. Dadurch wird bei allen Layouts der Framework CSS Code YAML spezifisch generiert.');

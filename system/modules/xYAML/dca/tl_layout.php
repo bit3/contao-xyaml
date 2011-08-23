@@ -1,6 +1,10 @@
 <?php if (!defined('TL_ROOT')) die('You can not access this file directly!');
 
 /**
+ * xYAML - YAML Integration for Contao
+ * Copyright (C) 2010,2011 Tristan Lins
+ *
+ * Extension for:
  * Contao Open Source CMS
  * Copyright (C) 2005-2010 Leo Feyer
  *
@@ -21,40 +25,24 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  InfinitySoft 2010
+ * @copyright  InfinitySoft 2011
  * @author     Tristan Lins <tristan.lins@infinitysoft.de>
  * @package    xYAML
- * @license    http://opensource.org/licenses/lgpl-3.0.html
+ * @license    LGPL
+ * @filesource
  */
 
 
-/**
- * Class NewsletterYAML
- *
- * Provide methods to handle newsletters.
- * @copyright  InfinitySoft 2010
- * @author     Tristan Lins <tristan.lins@infinitysoft.de>
- * @package    xYAML 
- */
-class NewsletterYAML extends Newsletter
-{
-	/**
-	 * Compile the newsletter and send it
-	 * @param object
-	 * @param object
-	 * @param array
-	 * @param string
-	 * @param string
-	 * @param string
-	 * @return string
-	 */
-	protected function sendNewsletter(Email $objEmail, Database_Result $objNewsletter, $arrRecipient, $text, $html, $css)
-	{
-		NewsletterYAMLInsertTags::$currentNewsletter = $objNewsletter;
-		print_r($arrRecipient);
-		parent::sendNewsletter($objEmail, $objNewsletter, $arrRecipient, $text, $html, $css);
-		NewsletterYAMLInsertTags::$currentNewsletter = null;
-	}
-}
+$GLOBALS['TL_DCA']['tl_layout']['palettes']['default'] = str_replace(
+	'{expert_legend:hide}',
+	'{expert_legend:hide},xyaml',
+	$GLOBALS['TL_DCA']['tl_layout']['palettes']['default']);
+
+$GLOBALS['TL_DCA']['tl_layout']['fields']['xyaml'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_layout']['xyaml'],
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'m12')
+);
 
 ?>

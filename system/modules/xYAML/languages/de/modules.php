@@ -34,7 +34,6 @@
 
 
 /**
- * HOOKs
+ * Back end modules
  */
-$GLOBALS['TL_HOOKS']['generateFrameworkCss'][] = array('xYAML', 'hookGenerateFrameworkCss');
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('xYAML', 'hookGeneratePage');
+$GLOBALS['TL_LANG']['MOD']['xYAML'] = array('YAML Integration', 'YAML Integration für Contao.');
