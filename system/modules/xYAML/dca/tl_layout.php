@@ -45,4 +45,3 @@ $GLOBALS['TL_DCA']['tl_layout']['fields']['xyaml'] = array
 	'eval'                    => array('tl_class'=>'m12')
 );
 
-?>

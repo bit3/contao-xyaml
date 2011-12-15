@@ -158,4 +158,4 @@ class xYAML {
 		array_unshift($GLOBALS['TL_CSS'], 'system/modules/xYAML/yaml/core/base.css');
 	}
 }
-?>
+
