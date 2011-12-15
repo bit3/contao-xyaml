@@ -38,3 +38,4 @@
  */
 $GLOBALS['TL_HOOKS']['generateFrameworkCss'][] = array('xYAML', 'hookGenerateFrameworkCss');
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('xYAML', 'hookGeneratePage');
+

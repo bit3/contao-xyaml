@@ -37,3 +37,4 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_layout']['xyaml']  = array('Enable YAML', 'Enable YAML support for this layout. Generate a yaml spezific framework css code.');
+

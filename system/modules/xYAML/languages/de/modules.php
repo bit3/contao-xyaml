@@ -37,3 +37,4 @@
  * Back end modules
  */
 $GLOBALS['TL_LANG']['MOD']['xYAML'] = array('YAML Integration', 'YAML Integration für Contao.');
+
