@@ -154,7 +154,7 @@ class xYAML {
 			return false;
 		}
 
-		array_unshift($GLOBALS['TL_CSS'], LocalThemePlusFile::create('system/modules/xYAML/yaml/core/iehacks.css', '', 'IE lte 7'));
+		array_unshift($GLOBALS['TL_CSS'], LocalThemePlusFile::create('system/modules/xYAML/yaml/core/iehacks.css', '', 'lte IE 7'));
 		array_unshift($GLOBALS['TL_CSS'], 'system/modules/xYAML/yaml/core/base.css');
 	}
 }
