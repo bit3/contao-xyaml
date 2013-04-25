@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  *
  * PHP version 5
+ *
  * @copyright  bit3 UG 2013
  * @author     Tristan Lins <tristan.lins@bit3.de>
  * @package    xYAML
@@ -17,12 +18,35 @@
  */
 
 
-MetaPalettes::appendTo('tl_settings', array('xyaml' => 'yaml_path'));
+MetaPalettes::appendTo('tl_settings', array('xyaml' => array('yaml_auto_include')));
+
+$GLOBALS['TL_DCA']['tl_settings']['metasubpalettes']['yaml_auto_include'] = array('yaml_path_source', 'yaml_path');
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_auto_include'] = array
+(
+	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_auto_include'],
+	'inputType'        => 'checkbox',
+	'eval'             => array(
+		'submitOnChange' => true
+	)
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_path_source'] = array
+(
+	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path_source'],
+	'inputType'        => 'select',
+	'options_callback' => array('xYAML\DataContainer\Settings', 'getPathSources'),
+	'eval'             => array(
+		'submitOnChange' => true
+	),
+);
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_path'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path'],
-	'inputType'               => 'fileSelector',
-	'eval'                    => array('tl_class'=>'m12', 'path'=>'')
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path'],
+	'inputType' => (version_compare(VERSION, '3', '<') || $GLOBALS['TL_CONFIG']['yaml_path_source'] == $GLOBALS['TL_CONFIG']['uploadPath'] ? 'fileTree' : 'fileSelector'),
+	'eval'      => array(
+		'path'      => $GLOBALS['TL_CONFIG']['yaml_path_source'],
+		'fieldType' => 'radio'
+	)
 );
-

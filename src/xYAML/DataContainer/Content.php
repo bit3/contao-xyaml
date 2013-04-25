@@ -16,9 +16,19 @@
  * @filesource
  */
 
+namespace xYAML\DataContainer;
 
 /**
- * Fields
+ * Class Settings
  */
-$GLOBALS['TL_LANG']['tl_layout']['xyaml']  = array('Enable YAML', 'Enable YAML support for this layout.');
-
+class Content
+{
+	public function prepareDca($dc)
+	{
+		foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $palette => $fields) {
+			if ($palette != 'xyaml_grid_row_start' && $palette != 'xyaml_grid_row_end') {
+				\MetaPalettes::appendBefore('tl_content', $palette, 'expert', array('xyaml_grid'));
+			}
+		}
+	}
+}

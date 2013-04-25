@@ -18,20 +18,14 @@
 
 
 /**
- * Settings
+ * Back end modules
  */
-$GLOBALS['TL_CONFIG']['yaml_auto_include'] = true;
-$GLOBALS['TL_CONFIG']['yaml_path_source'] = $GLOBALS['TL_CONFIG']['uploadPath'];
+$GLOBALS['TL_LANG']['MOD']['xYAML'] = array('YAML Integration', 'YAML Integration für Contao.');
 
 
 /**
  * Content elements
  */
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_start'] = 'xYAML\Content\GridRowStart';
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_end'] = 'xYAML\Content\GridRowEnd';
-
-
-/**
- * HOOKs
- */
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('xYAML', 'hookGeneratePage');
+$GLOBALS['TL_LANG']['CTE']['layout']               = 'Layout';
+$GLOBALS['TL_LANG']['CTE']['xyaml_grid_row_start'] = 'Grid Zeilenanfang';
+$GLOBALS['TL_LANG']['CTE']['xyaml_grid_row_end']   = 'Grid Zeilenende';

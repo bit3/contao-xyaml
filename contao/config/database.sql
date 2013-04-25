@@ -18,9 +18,9 @@ CREATE TABLE `tl_layout` (
 -- --------------------------------------------------------
 
 --
--- Table `tl_layout`
+-- Table `tl_content`
 --
 
-CREATE TABLE `tl_layout` (
-  `xyaml` char(1) NOT NULL default '',
+CREATE TABLE `tl_content` (
+  `xyaml_equialize` char(1) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
