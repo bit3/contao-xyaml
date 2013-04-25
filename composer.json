@@ -1,0 +1,26 @@
+{
+	"name": "bit3/contao-xyaml",
+	"type": "contao-module",
+    "description": "YAML integration for Contao CMS",
+    "keywords": ["contao", "yaml"],
+    "license": "MIT",
+    "authors": [
+		{
+			"name":"Tristan Lins",
+			"email":"tristan.lins@bit3.de",
+			"homepage":"http://bit3.de",
+			"role":"Developer"
+		}
+    ],
+	"require": {
+		"contao/core": ">=2.11,<4",
+		"bit3/contao-meta-palettes": "~1"
+	},
+	"extra": {
+		"contao": {
+			"symlinks": {
+				"src/system/modules/xYAML": "system/modules/xYAML"
+			}
+		}
+	}
+}
