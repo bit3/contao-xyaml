@@ -19,8 +19,11 @@
 	"extra": {
 		"contao": {
 			"symlinks": {
-				"src/system/modules/xYAML": "system/modules/xYAML"
+				"contao": "system/modules/xYAML"
 			}
 		}
+	},
+	"autoload": {
+		"classmap": ["src/"]
 	}
 }

@@ -16,7 +16,6 @@
  * @filesource
  */
 
-
 /**
  * Class xYAML
  */
