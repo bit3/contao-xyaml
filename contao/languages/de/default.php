@@ -27,5 +27,5 @@ $GLOBALS['TL_LANG']['MOD']['xYAML'] = array('YAML Integration', 'YAML Integratio
  * Content elements
  */
 $GLOBALS['TL_LANG']['CTE']['layout']               = 'Layout';
-$GLOBALS['TL_LANG']['CTE']['xyaml_grid_row_start'] = 'Grid Zeilenanfang';
-$GLOBALS['TL_LANG']['CTE']['xyaml_grid_row_end']   = 'Grid Zeilenende';
+$GLOBALS['TL_LANG']['CTE']['xyaml_grid_row_start'] = array('Grid Zeilenanfang', 'Markiert den Anfang einer Zeile im Grid.');
+$GLOBALS['TL_LANG']['CTE']['xyaml_grid_row_end']   = array('Grid Zeilenende', 'Markiert das Ende einer Zeile im Grid.');

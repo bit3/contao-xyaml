@@ -18,7 +18,7 @@
  */
 
 
-$GLOBALS['TL_DCA']['tl_content']['config']['onload_callback']['yaml'] = array('xYAML\DataContainer\Content', 'prepareDca');
+$GLOBALS['TL_DCA']['tl_content']['config']['palettes_callback']['yaml'] = array('xYAML\DataContainer\Content', 'prepareDca');
 
 $GLOBALS['TL_DCA']['tl_content']['metapalettes']['xyaml_grid_row_start'] = array(
 	'type'      => array('type', 'headline'),
@@ -39,7 +39,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['xyaml_grid'] = array
 (
 	'label'     => &$GLOBALS['TL_LANG']['tl_content']['xyaml_grid'],
 	'inputType' => 'select',
-	'option'    => array('20', '25', '33', '38', '40', '50', '60', '62', '66', '75', '80'),
+	'options'   => array('20', '25', '33', '38', '40', '50', '60', '62', '66', '75', '80'),
+	'reference' => &$GLOBALS['TL_LANG']['tl_content']['xyaml_grid_width'],
 	'eval'      => array('submitOnChange' => true, 'includeBlankOption' => true, 'tl_class' => 'clr w50')
 );
 
@@ -48,7 +49,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['xyaml_grid_float'] = array
 (
 	'label'     => &$GLOBALS['TL_LANG']['tl_content']['xyaml_grid_float'],
 	'inputType' => 'select',
-	'option'    => array('left', 'right'),
+	'options'   => array('left', 'right'),
 	'eval'      => array('tl_class' => 'w50')
 );
 

@@ -35,3 +35,21 @@ $GLOBALS['TL_CTE']['layout']['xyaml_grid_row_end'] = 'xYAML\Content\GridRowEnd';
  * HOOKs
  */
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('xYAML', 'hookGeneratePage');
+
+
+/**
+ * Custom class loader fix
+ */
+if (version_compare(VERSION, '3', '<')) {
+	$objCache = FileCache::getInstance('classes');
+	foreach (
+		array(
+			'xYAML\Content\GridRowStart',
+			'xYAML\Content\GridRowEnd'
+		) as $strClass
+	) {
+		if (!$objCache->$strClass) {
+			$objCache->$strClass = true;
+		}
+	}
+}

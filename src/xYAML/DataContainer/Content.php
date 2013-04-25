@@ -23,11 +23,11 @@ namespace xYAML\DataContainer;
  */
 class Content
 {
-	public function prepareDca($dc)
+	public function prepareDca()
 	{
 		foreach ($GLOBALS['TL_DCA']['tl_content']['palettes'] as $palette => $fields) {
-			if ($palette != 'xyaml_grid_row_start' && $palette != 'xyaml_grid_row_end') {
-				\MetaPalettes::appendBefore('tl_content', $palette, 'expert', array('xyaml_grid'));
+			if ($palette != '__selector__' && $palette != 'default' && $palette != 'xyaml_grid_row_start' && $palette != 'xyaml_grid_row_end') {
+				\MetaPalettes::appendBefore('tl_content', $palette, 'expert', array('layout' => array('xyaml_grid')));
 			}
 		}
 	}

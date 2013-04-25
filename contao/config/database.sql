@@ -23,4 +23,6 @@ CREATE TABLE `tl_layout` (
 
 CREATE TABLE `tl_content` (
   `xyaml_equialize` char(1) NOT NULL default '',
+  `xyaml_grid` char(2) NOT NULL default '',
+  `xyaml_grid_float` char(5) NOT NULL default 'left',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
