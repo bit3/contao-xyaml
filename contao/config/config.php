@@ -27,15 +27,39 @@ $GLOBALS['TL_CONFIG']['yaml_path_source'] = $GLOBALS['TL_CONFIG']['uploadPath'];
 /**
  * Content elements
  */
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_start'] = 'xYAML\Content\GridRowStart';
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_end'] = 'xYAML\Content\GridRowEnd';
+$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_start']  = 'xYAML\Content\GridRowStart';
+$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_end']    = 'xYAML\Content\GridRowEnd';
+$GLOBALS['TL_CTE']['layout']['xyaml_grid_cell_start'] = 'xYAML\Content\GridCellStart';
+$GLOBALS['TL_CTE']['layout']['xyaml_grid_cell_end']   = 'xYAML\Content\GridCellEnd';
 
 
 /**
  * HOOKs
  */
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('xYAML', 'hookGeneratePage');
+$GLOBALS['TL_HOOKS']['generatePage']['xyaml']      = array('xYAML\Hooks', 'hookGeneratePage');
+$GLOBALS['TL_HOOKS']['getContentElement']['xyaml'] = array('xYAML\Hooks', 'wrapContentElement');
 
+
+/**
+ * YAML AddOns
+ */
+$GLOBALS['YAML_ADDONS']['accessible-tabs'] = array(
+	'css' => array('add-ons/accessible-tabs/tabs.css'),
+	'js'  => array('add-ons/accessible-tabs/jquery.tabs.js'),
+);
+$GLOBALS['YAML_ADDONS']['microformats'] = array(
+	'css' => array('add-ons/microformats/microformats.css'),
+);
+$GLOBALS['YAML_ADDONS']['rtl-support'] = array(
+	'css' => array(
+		'add-ons/rtl-support/core/base-rtl.min.css',
+		'add-ons/rtl-support/navigation/base-rtl.min.css',
+		'add-ons/rtl-support/screen/base-rtl.min.css',
+	),
+);
+$GLOBALS['YAML_ADDONS']['syncheight'] = array(
+	'js' => array('add-ons/syncheight/jquery.syncheight.js'),
+);
 
 /**
  * Custom class loader fix
@@ -45,7 +69,9 @@ if (version_compare(VERSION, '3', '<')) {
 	foreach (
 		array(
 			'xYAML\Content\GridRowStart',
-			'xYAML\Content\GridRowEnd'
+			'xYAML\Content\GridRowEnd',
+			'xYAML\Content\GridCellStart',
+			'xYAML\Content\GridCellEnd',
 		) as $strClass
 	) {
 		if (!$objCache->$strClass) {

@@ -1,0 +1,14 @@
+.grid-indicator {
+	background-color: #ccc;
+	padding: 2px;
+	float: right;
+	width: 140px;
+}
+.grid-indicator .item {
+	font-family: Consolas, monospace;
+	text-align: center;
+	background-color: #333;
+	color: #fff;
+	padding: 2px 0 1px;
+	font-size: 9px;
+}

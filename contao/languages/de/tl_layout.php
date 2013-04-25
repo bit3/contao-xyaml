@@ -21,4 +21,6 @@
  * Fields
  */
 $GLOBALS['TL_LANG']['tl_layout']['xyaml']  = array('YAML aktivieren', 'Aktiviert YAML Support für dieses Layout.');
+$GLOBALS['TL_LANG']['tl_layout']['xyaml_iehacks']  = array('IE Hacks aktivieren', 'Aktiviert YAML Support für alte Browser (IE <= 7).');
+$GLOBALS['TL_LANG']['tl_layout']['xyaml_addons']  = array('AddOns', 'Wählen Sie hier die YAML AddOns aus, die für dieses Layout aktiviert werden sollen.');
 

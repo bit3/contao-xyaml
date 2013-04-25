@@ -23,9 +23,21 @@ $GLOBALS['TL_DCA']['tl_content']['config']['palettes_callback']['yaml'] = array(
 $GLOBALS['TL_DCA']['tl_content']['metapalettes']['xyaml_grid_row_start'] = array(
 	'type'      => array('type', 'headline'),
 	'protected' => array('protected'),
+	'layout'    => array('xyaml_equialize'),
 	'expert'    => array('guests', 'invisible', 'cssID', 'space')
 );
 $GLOBALS['TL_DCA']['tl_content']['metapalettes']['xyaml_grid_row_end']   = array(
+	'type'      => array('type', 'headline'),
+	'protected' => array('protected'),
+	'expert'    => array('guests', 'invisible')
+);
+$GLOBALS['TL_DCA']['tl_content']['metapalettes']['xyaml_grid_cell_start'] = array(
+	'type'      => array('type', 'headline'),
+	'protected' => array('protected'),
+	'layout'    => array('xyaml_grid'),
+	'expert'    => array('guests', 'invisible', 'cssID', 'space')
+);
+$GLOBALS['TL_DCA']['tl_content']['metapalettes']['xyaml_grid_cell_end']   = array(
 	'type'      => array('type', 'headline'),
 	'protected' => array('protected'),
 	'expert'    => array('guests', 'invisible')
@@ -44,7 +56,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['xyaml_grid'] = array
 	'eval'      => array('submitOnChange' => true, 'includeBlankOption' => true, 'tl_class' => 'clr w50')
 );
 
-
 $GLOBALS['TL_DCA']['tl_content']['fields']['xyaml_grid_float'] = array
 (
 	'label'     => &$GLOBALS['TL_LANG']['tl_content']['xyaml_grid_float'],
@@ -53,3 +64,9 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['xyaml_grid_float'] = array
 	'eval'      => array('tl_class' => 'w50')
 );
 
+$GLOBALS['TL_DCA']['tl_content']['fields']['xyaml_equialize'] = array
+(
+	'label'     => &$GLOBALS['TL_LANG']['tl_content']['xyaml_equialize'],
+	'inputType' => 'checkbox',
+	'eval'      => array('tl_class' => 'm12 w50')
+);

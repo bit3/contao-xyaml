@@ -21,12 +21,12 @@ namespace xYAML\Content;
 /**
  * Class xYAML
  */
-class GridRowStart extends \ContentElement
+class GridCellStart extends \ContentElement
 {
 	/**
 	 * @var string
 	 */
-	protected $strTemplate = 'ce_xyaml_grid_row_start';
+	protected $strTemplate = 'ce_xyaml_grid_cell_start';
 
 	/**
 	 * @return string
@@ -37,7 +37,7 @@ class GridRowStart extends \ContentElement
 		{
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard = '### GRID ROW START ###';
+			$objTemplate->wildcard = '### GRID CELL START ###';
 
 			return $objTemplate->parse();
 		}
@@ -50,6 +50,7 @@ class GridRowStart extends \ContentElement
 	 */
 	protected function compile()
 	{
-		$this->Template->equalize = $this->xyaml_equialize;
+		$this->Template->grid  = $this->xyaml_grid;
+		$this->Template->float = $this->xyaml_float;
 	}
 }

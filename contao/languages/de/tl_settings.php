@@ -31,7 +31,7 @@ $GLOBALS['TL_LANG']['tl_settings']['yaml_path_source']  = array(
 );
 $GLOBALS['TL_LANG']['tl_settings']['yaml_path']         = array(
 	'Quellverzeichnis für YAML Dateien',
-	'Wählen Sie hier das Quellverzeichnis in dem Sie die YAML Dateien abgelegt haben aus.'
+	'Wählen Sie hier das Quellverzeichnis (beinhaltet "add-ons", "core", "forms", "navigation", "print" und "screen") in dem Sie die YAML Dateien abgelegt haben aus.'
 );
 
 

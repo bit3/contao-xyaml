@@ -14,7 +14,8 @@
     ],
 	"require": {
 		"contao/core": ">=2.11,<4",
-		"bit3/contao-meta-palettes": "~1"
+		"bit3/contao-meta-palettes": "~1",
+		"bit3/contao-compat": "~1"
 	},
 	"extra": {
 		"contao": {

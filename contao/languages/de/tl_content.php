@@ -29,6 +29,10 @@ $GLOBALS['TL_LANG']['tl_content']['xyaml_grid_float'] = array(
 	'Elementausrichtung',
 	'Wählen Sie ob das Element links oder rechts im Grid angzeigt werden soll.'
 );
+$GLOBALS['TL_LANG']['tl_content']['xyaml_equalize'] = array(
+	'Gleichhohe Spalten',
+	'Wählen Sie diese Option damit alle Spalten im Grid die gleiche Höhe haben.'
+);
 
 /**
  * Legends

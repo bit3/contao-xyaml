@@ -46,6 +46,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_path'] = array
 	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path'],
 	'inputType' => (version_compare(VERSION, '3', '<') || $GLOBALS['TL_CONFIG']['yaml_path_source'] == $GLOBALS['TL_CONFIG']['uploadPath'] ? 'fileTree' : 'fileSelector'),
 	'eval'      => array(
+		'submitOnChange' => true,
 		'path'      => $GLOBALS['TL_CONFIG']['yaml_path_source'],
 		'fieldType' => 'radio'
 	)
