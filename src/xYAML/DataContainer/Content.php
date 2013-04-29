@@ -39,7 +39,7 @@ class Content extends \Frontend
 		return self::$instance;
 	}
 
-	protected $originalChildRecordCallback = array('tl_content', 'addCteType');
+	protected $originalChildRecordCallback = null;
 
 	protected $columnOffset = array('left' => 0, 'right' => 0);
 
@@ -59,10 +59,11 @@ class Content extends \Frontend
 			}
 		}
 
-		$this->originalChildRecordCallback = $GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'];
-		$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = array('xYAML\DataContainer\Content', 'addColumnInformation');
-
-		$this->import($this->originalChildRecordCallback[0], 'originalChildRecordCallbackClass');
+		if ($this->originalChildRecordCallback === null) {
+			$this->originalChildRecordCallback = $GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'];
+			$this->import($this->originalChildRecordCallback[0], 'originalChildRecordCallbackClass');
+			$GLOBALS['TL_DCA']['tl_content']['list']['sorting']['child_record_callback'] = array('xYAML\DataContainer\Content', 'addColumnInformation');
+		}
 	}
 
 	/**
