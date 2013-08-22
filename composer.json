@@ -14,14 +14,18 @@
     ],
 	"require": {
 		"contao/core": ">=2.11,<4",
+		"contao-community-alliance/composer-installer": "*",
 		"bit3/contao-meta-palettes": "~1",
 		"bit3/contao-compat": "~1"
 	},
 	"extra": {
 		"contao": {
-			"symlinks": {
+			"sources": {
 				"contao": "system/modules/xYAML"
 			}
+		},
+		"branch-alias": {
+			"dev-master": "1.x-dev"
 		}
 	},
 	"autoload": {
