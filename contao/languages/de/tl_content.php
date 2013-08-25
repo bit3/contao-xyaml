@@ -29,9 +29,13 @@ $GLOBALS['TL_LANG']['tl_content']['xyaml_grid_float'] = array(
 	'Elementausrichtung',
 	'Wählen Sie ob das Element links oder rechts im Grid angzeigt werden soll.'
 );
-$GLOBALS['TL_LANG']['tl_content']['xyaml_equalize'] = array(
+$GLOBALS['TL_LANG']['tl_content']['xyaml_equialize'] = array(
 	'Gleichhohe Spalten',
 	'Wählen Sie diese Option damit alle Spalten im Grid die gleiche Höhe haben.'
+);
+$GLOBALS['TL_LANG']['tl_content']['xyaml_class'] = array(
+    'Klasse hinzufügen',
+    'Hier können Sie der Yaml Spalte noch eine Klasse hinzufügen.'
 );
 
 /**

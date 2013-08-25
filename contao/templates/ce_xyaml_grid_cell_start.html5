@@ -1,3 +1,3 @@
-<div class="ym-g<?php echo $this->grid; if ($this->float == 'right'): ?> ym-gr<?php else: ?> ym-gl<?php endif; ?>">
+<div class="<?php if($this->grid):?> ym-g<?php echo $this->grid; endif; if ($this->xyaml_grid_float == 'right'): ?> ym-gr<?php else: ?> ym-gl<?php endif; ?><?php if($this->xyaml_class): echo " " . $this->xyaml_class; endif;?>">
 <div class="ym-gbox">
 <div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
