@@ -25,7 +25,10 @@
 		"contao": {
 			"sources": {
 				"contao": "system/modules/xYAML"
-			}
+			},
+			"runonce": [
+				"runonce/UpdateDatabase.php"
+			]
 		},
 		"branch-alias": {
 			"dev-master": "1.x-dev"

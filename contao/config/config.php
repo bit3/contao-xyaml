@@ -22,22 +22,12 @@
  */
 $GLOBALS['TL_CONFIG']['yaml_auto_include'] = true;
 $GLOBALS['TL_CONFIG']['yaml_path_source'] = $GLOBALS['TL_CONFIG']['uploadPath'];
-
-
-/**
- * Content elements
- */
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_start']  = 'xYAML\Content\GridRowStart';
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_row_end']    = 'xYAML\Content\GridRowEnd';
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_cell_start'] = 'xYAML\Content\GridCellStart';
-$GLOBALS['TL_CTE']['layout']['xyaml_grid_cell_end']   = 'xYAML\Content\GridCellEnd';
+$GLOBALS['TL_CONFIG']['subcolumns']        = 'yaml4';
 
 
 /**
  * HOOKs
  */
-$GLOBALS['TL_HOOKS']['generatePage']['xyaml']      = array('xYAML\Hooks', 'hookGeneratePage');
-$GLOBALS['TL_HOOKS']['getContentElement']['xyaml'] = array('xYAML\Hooks', 'wrapContentElement');
 
 
 /**

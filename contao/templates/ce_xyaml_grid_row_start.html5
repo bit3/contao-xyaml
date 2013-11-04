@@ -1,2 +1,0 @@
-<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
-<div class="ym-grid<?php if ($this->equalize): ?> ym-equalize<?php endif; ?><?php if ($this->xyaml_linearize_level): echo " " . $this->xyaml_linearize_level; endif; ?>">
