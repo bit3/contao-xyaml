@@ -16,4 +16,11 @@
  */
 TemplateLoader::addFiles(array
 (
+	'form'          => 'system/modules/xYAML/templates',
+	'form_captcha'  => 'system/modules/xYAML/templates',
+	'form_checkbox' => 'system/modules/xYAML/templates',
+	'form_password' => 'system/modules/xYAML/templates',
+	'form_radio'    => 'system/modules/xYAML/templates',
+	'form_submit'   => 'system/modules/xYAML/templates',
+	'form_widget'   => 'system/modules/xYAML/templates',
 ));

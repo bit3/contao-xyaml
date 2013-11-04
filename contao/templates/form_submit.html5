@@ -1,0 +1,4 @@
+
+<div class="ym-fbox-footer ym-fbox-button">
+	<?php echo $this->generate(); ?>
+</div>

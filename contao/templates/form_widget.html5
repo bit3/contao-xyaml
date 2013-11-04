@@ -1,0 +1,6 @@
+
+<div class="<?php echo Bit3\Contao\XYAML\Form::generateRowClasses($this); ?>">
+	<?php echo Bit3\Contao\XYAML\Form::prepareLabel($this->generateLabel()); ?>
+	<?php echo $this->generate(); ?>
+	<?php echo Bit3\Contao\XYAML\Form::prepareErrorMessage($this->getErrorAsHTML()); ?>
+</div>

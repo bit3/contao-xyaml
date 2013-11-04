@@ -15,6 +15,11 @@ CREATE TABLE `tl_layout` (
   `xyaml` char(1) NOT NULL default '',
   `xyaml_iehacks` char(1) NOT NULL default '',
   `xyaml_addons` text NULL,
+  `xyaml_forms` text NULL,
+  `xyaml_navigation` text NULL,
+  `xyaml_print` text NULL,
+  `xyaml_screen` text NULL,
+  `xyaml_subcolumns_linearize` char(1) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

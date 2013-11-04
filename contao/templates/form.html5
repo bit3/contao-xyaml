@@ -1,0 +1,39 @@
+
+<!-- indexer::stop -->
+<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <?php
+  if (preg_match('~class="([^"]*)"~', $this->attributes, $matches)) {
+    if (strpos($matches[1], 'ym-form') === false) {
+      $this->attributes = str_replace(
+        $matches[0],
+        sprintf('class="ym-form %s"', $matches[1]),
+        $this->attributes
+      );
+    }
+  }
+  else {
+    $this->attributes .= ' class="ym-form"';
+  }
+  ?>
+
+  <form<?php if ($this->action): ?> action="<?php echo $this->action; ?>"<?php endif; ?> id="<?php echo $this->formId; ?>" method="<?php echo $this->method; ?>" enctype="<?php echo $this->enctype; ?>"<?php echo $this->attributes; ?><?php echo $this->novalidate; ?>>
+    <div class="formbody">
+      <?php if ($this->method != 'get'): ?>
+        <input type="hidden" name="FORM_SUBMIT" value="<?php echo $this->formSubmit; ?>">
+        <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+        <?php if ($this->maxFileSize): ?>
+          <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo $this->maxFileSize; ?>">
+        <?php endif; ?>
+      <?php endif; ?>
+      <?php echo $this->hidden; ?>
+      <?php echo $this->fields; ?>
+    </div>
+  </form>
+
+</div>
+<!-- indexer::continue -->

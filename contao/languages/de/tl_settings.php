@@ -25,6 +25,14 @@ $GLOBALS['TL_LANG']['tl_settings']['yaml_auto_include'] = array(
 	'YAML automatisch einbinden',
 	'Bindet die YAML Dateien automatisch ein, ansonsten muss dies von Hand im Layout vorgenommen werden.'
 );
+$GLOBALS['TL_LANG']['tl_settings']['yaml_mode']  = array(
+	'Modus',
+	'Wählen Sie hier ob die CSS oder SASS Dateien eingebunden werden sollen.'
+);
+$GLOBALS['TL_LANG']['tl_settings']['yaml_compass_filter']  = array(
+	'Compass Filter',
+	'Wählen Sie hier den zu verwendenden Compass Filter aus.'
+);
 $GLOBALS['TL_LANG']['tl_settings']['yaml_path_source']  = array(
 	'Ursprungsverzeichnis für YAML Dateien',
 	'Wählen Sie hier ein Ursprungsverzeichnis in dem Sie nach den YAML Dateien suchen möchten.'

@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  *
  * PHP version 5
+ *
  * @copyright  bit3 UG 2013
  * @author     Tristan Lins <tristan.lins@bit3.de>
  * @package    xYAML
@@ -16,13 +17,39 @@
  * @filesource
  */
 
-namespace xYAML\DataContainer;
+namespace Bit3\Contao\XYAML\DataContainer;
+
+use ContaoAssetic\Model\FilterModel;
 
 /**
  * Class Settings
  */
 class Settings
 {
+	public function getCompassFilterOptions($dc)
+	{
+		$options = array();
+
+		$filter = FilterModel::findBy('type', 'compass', array('order' => 'type'));
+
+		if ($filter) {
+			while ($filter->next()) {
+				$label = $GLOBALS['TL_LANG']['assetic'][$filter->type]
+					? : $filter->type;
+
+				if ($filter->note) {
+					$label .= ' [' . $filter->note . ']';
+				}
+
+				$GLOBALS['TL_LANG']['assetic']['filter:' . $filter->id] = $label;
+
+				$options[] = 'filter:' . $filter->id;
+			}
+		}
+
+		return $options;
+	}
+
 	public function getPathSources()
 	{
 		$options = array();

@@ -1,0 +1,20 @@
+
+<div class="<?php echo Bit3\Contao\XYAML\Form::generateRowClasses($this); ?>">
+	<?php
+	$buffer = $this->generate();
+	if (preg_match('#<fieldset[^>]*><legend>(.*)</legend>(<input type="hidden" name=".*" value="">)(.*)</fieldset>#', $buffer, $matches)):
+		echo $matches[2];
+		?>
+		<span class="ym-label"><?php echo $matches[1]; ?></span>
+		<div class="ym-fbox-wrap">
+			<?php
+			echo str_replace('span', 'div', $matches[3]);
+			?>
+		</div>
+		<?php
+	else:
+		echo $buffer;
+	endif;
+	?>
+	<?php echo Bit3\Contao\XYAML\Form::prepareErrorMessage($this->getErrorAsHTML()); ?>
+</div>

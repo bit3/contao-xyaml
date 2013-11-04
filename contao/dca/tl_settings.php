@@ -20,14 +20,47 @@
 
 MetaPalettes::appendTo('tl_settings', array('xyaml' => array('yaml_auto_include')));
 
-$GLOBALS['TL_DCA']['tl_settings']['metasubpalettes']['yaml_auto_include'] = array('yaml_path_source', 'yaml_path');
+$GLOBALS['TL_DCA']['tl_settings']['metasubpalettes']['yaml_auto_include'] = array(
+	'yaml_mode',
+	'yaml_path_source',
+	'yaml_path'
+);
+$GLOBALS['TL_DCA']['tl_settings']['metasubselectpalettes']['yaml_mode']   = array('sass' => array('yaml_compass_filter'));
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_auto_include'] = array
 (
-	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_auto_include'],
-	'inputType'        => 'checkbox',
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['yaml_auto_include'],
+	'inputType' => 'checkbox',
+	'eval'      => array(
+		'submitOnChange' => true,
+		'tl_class'       => 'w50 m12',
+	)
+);
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_mode'] = array
+(
+	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['yaml_mode'],
+	'inputType' => 'select',
+	'options'   => array('css'),
+	'eval'      => array(
+		'submitOnChange' => true,
+		'tl_class'       => 'w50',
+	)
+);
+
+if (in_array('assetic', \Config::getInstance()->getActiveModules())) {
+	$GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_mode']['options'][] = 'sass';
+}
+
+$GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_compass_filter'] = array
+(
+	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_compass_filter'],
+	'inputType'        => 'select',
+	'options_callback' => array('Bit3\Contao\XYAML\DataContainer\Settings', 'getCompassFilterOptions'),
+	'reference'        => &$GLOBALS['TL_LANG']['assetic'],
 	'eval'             => array(
-		'submitOnChange' => true
+		'includeBlankOption' => true,
+		'tl_class'           => 'w50',
 	)
 );
 
@@ -35,19 +68,24 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_path_source'] = array
 (
 	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path_source'],
 	'inputType'        => 'select',
-	'options_callback' => array('xYAML\DataContainer\Settings', 'getPathSources'),
+	'options_callback' => array('Bit3\Contao\XYAML\DataContainer\Settings', 'getPathSources'),
 	'eval'             => array(
-		'submitOnChange' => true
+		'submitOnChange' => true,
+		'tl_class'       => 'w50',
 	),
 );
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_path'] = array
 (
 	'label'     => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path'],
-	'inputType' => (version_compare(VERSION, '3', '<') || $GLOBALS['TL_CONFIG']['yaml_path_source'] == $GLOBALS['TL_CONFIG']['uploadPath'] ? 'fileTree' : 'fileSelector'),
+	'inputType' => (version_compare(VERSION, '3', '<') ||
+	$GLOBALS['TL_CONFIG']['yaml_path_source'] == $GLOBALS['TL_CONFIG']['uploadPath']
+		? 'fileTree'
+		: 'fileSelector'),
 	'eval'      => array(
 		'submitOnChange' => true,
-		'path'      => $GLOBALS['TL_CONFIG']['yaml_path_source'],
-		'fieldType' => 'radio'
+		'path'           => $GLOBALS['TL_CONFIG']['yaml_path_source'],
+		'fieldType'      => 'radio',
+		'tl_class'       => 'clr',
 	)
 );
