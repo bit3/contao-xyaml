@@ -19,7 +19,7 @@
 		"bit3/contao-compat": "~1"
 	},
 	"replace": {
-		"contao-legacy/xyaml": "*"
+		"contao-legacy/xyaml": "self.version"
 	},
 	"extra": {
 		"contao": {
