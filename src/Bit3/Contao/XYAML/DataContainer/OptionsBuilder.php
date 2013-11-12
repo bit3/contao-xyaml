@@ -22,9 +22,9 @@ namespace Bit3\Contao\XYAML\DataContainer;
 use ContaoAssetic\Model\FilterModel;
 
 /**
- * Class Settings
+ * Class OptionsBuilder
  */
-class Settings
+class OptionsBuilder
 {
 	public function getCompassFilterOptions($dc)
 	{

@@ -35,9 +35,15 @@ class Hooks
 	 */
 	public function hookGetPageLayout($objPage, $objLayout, $objPageRegular)
 	{
-		if ($GLOBALS['TL_CONFIG']['yaml_auto_include'] && $objLayout->xyaml && !empty($GLOBALS['TL_CONFIG']['yaml_path']))
+		$autoInclude = $objLayout->xyaml_auto_include || $GLOBALS['TL_CONFIG']['yaml_auto_include'];
+		$path = $objLayout->xyaml_auto_include ? $objLayout->xyaml_path : $GLOBALS['TL_CONFIG']['yaml_path'];
+
+		if ($autoInclude && $objLayout->xyaml && !empty($path))
 		{
-			$path = \Compat::resolveFile($GLOBALS['TL_CONFIG']['yaml_path'], false);
+			$mode = $objLayout->xyaml_auto_include ? $objLayout->xyaml_mode : $GLOBALS['TL_CONFIG']['yaml_mode'];
+			$filter = $objLayout->xyaml_auto_include ? $objLayout->xyaml_compass_filter : $GLOBALS['TL_CONFIG']['yaml_compass_filter'];
+
+			$path = \Compat::resolveFile($path, false);
 
 			if ($path) {
 				if (!is_array($GLOBALS['TL_CSS'])) {
@@ -47,7 +53,7 @@ class Hooks
 					$GLOBALS['TL_JAVASCRIPT'] = array();
 				}
 
-				$useSass = $GLOBALS['TL_CONFIG']['yaml_mode'] == 'sass';
+				$useSass = $mode == 'sass';
 
 				if ($useSass) {
 					$activeModules = \Config::getInstance()->getActiveModules();
@@ -55,7 +61,7 @@ class Hooks
 						throw new \RuntimeException('Cannot use YAML SASS without assetic extension');
 					}
 
-					$filters = array(AsseticFactory::createFilterOrChain($GLOBALS['TL_CONFIG']['yaml_compass_filter']));
+					$filters = array(AsseticFactory::createFilterOrChain($filter));
 				}
 				else {
 					$filters = null;

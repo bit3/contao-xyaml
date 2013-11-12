@@ -56,7 +56,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_compass_filter'] = array
 (
 	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_compass_filter'],
 	'inputType'        => 'select',
-	'options_callback' => array('Bit3\Contao\XYAML\DataContainer\Settings', 'getCompassFilterOptions'),
+	'options_callback' => array('Bit3\Contao\XYAML\DataContainer\OptionsBuilder', 'getCompassFilterOptions'),
 	'reference'        => &$GLOBALS['TL_LANG']['assetic'],
 	'eval'             => array(
 		'includeBlankOption' => true,
@@ -68,7 +68,7 @@ $GLOBALS['TL_DCA']['tl_settings']['fields']['yaml_path_source'] = array
 (
 	'label'            => &$GLOBALS['TL_LANG']['tl_settings']['yaml_path_source'],
 	'inputType'        => 'select',
-	'options_callback' => array('Bit3\Contao\XYAML\DataContainer\Settings', 'getPathSources'),
+	'options_callback' => array('Bit3\Contao\XYAML\DataContainer\OptionsBuilder', 'getPathSources'),
 	'eval'             => array(
 		'submitOnChange' => true,
 		'tl_class'       => 'w50',

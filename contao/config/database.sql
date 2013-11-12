@@ -13,6 +13,7 @@
 
 CREATE TABLE `tl_layout` (
   `xyaml` char(1) NOT NULL default '',
+  `xyaml_config` char(6) NOT NULL default '',
   `xyaml_iehacks` char(1) NOT NULL default '',
   `xyaml_addons` text NULL,
   `xyaml_forms` text NULL,
@@ -20,18 +21,9 @@ CREATE TABLE `tl_layout` (
   `xyaml_print` text NULL,
   `xyaml_screen` text NULL,
   `xyaml_subcolumns_linearize` char(1) NOT NULL default '',
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table `tl_content`
---
-
-CREATE TABLE `tl_content` (
-  `xyaml_equialize` char(1) NOT NULL default '',
-  `xyaml_grid` char(2) NOT NULL default '',
-  `xyaml_grid_float` char(5) NOT NULL default 'left',
-  `xyaml_linearize_level` varchar(255) NOT NULL default '',
-  `xyaml_class` varchar(255) NOT NULL default '',
+  `xyaml_auto_include` char(1) NOT NULL default '',
+  `xyaml_mode` char(4) NOT NULL default '',
+  `xyaml_compass_filter` varchar(255) NOT NULL default '',
+  `xyaml_path_source` varchar(255) NOT NULL default '',
+  `xyaml_path` text NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
