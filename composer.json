@@ -13,7 +13,7 @@
 		}
 	],
 	"require": {
-		"contao/core": ">=2.11,<4",
+		"contao/core": ">=3,<4-dev",
 		"contao-community-alliance/composer-installer": "*",
 		"bit3/contao-meta-palettes": "~1",
 		"bit3/contao-compat": "~1"
