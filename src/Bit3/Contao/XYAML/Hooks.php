@@ -64,7 +64,7 @@ class Hooks
 					$filters = array(AsseticFactory::createFilterOrChain($filter));
 				}
 				else {
-					$filters = null;
+					$filters = array();
 				}
 
 				// add yaml addons
