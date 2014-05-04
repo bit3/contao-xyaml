@@ -24,6 +24,6 @@ CREATE TABLE `tl_layout` (
   `xyaml_auto_include` char(1) NOT NULL default '',
   `xyaml_mode` char(4) NOT NULL default '',
   `xyaml_compass_filter` varchar(255) NOT NULL default '',
-  `xyaml_path_source` varchar(255) NOT NULL default '',
+  `xyaml_path_source` blob NULL,
   `xyaml_path` text NULL,
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
