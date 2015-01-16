@@ -19,7 +19,7 @@
 
 namespace Bit3\Contao\XYAML\DataContainer;
 
-use ContaoAssetic\Model\FilterModel;
+use Bit3\Contao\Assetic\Model\FilterModel;
 
 /**
  * Class OptionsBuilder

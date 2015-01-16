@@ -19,7 +19,12 @@
 namespace Bit3\Contao\XYAML;
 
 use Assetic\Asset\FileAsset;
-use ContaoAssetic\AsseticFactory;
+use Bit3\Contao\Assetic\AsseticFactory;
+use Bit3\Contao\ThemePlus\Event\GenerateAssetPathEvent;
+use Bit3\Contao\ThemePlus\RenderMode;
+use Bit3\Contao\ThemePlus\RenderModeDeterminer;
+use Bit3\Contao\ThemePlus\ThemePlusEvents;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class xYAML
@@ -61,7 +66,12 @@ class Hooks
 						throw new \RuntimeException('Cannot use YAML SASS without assetic extension');
 					}
 
-					$filters = array(AsseticFactory::createFilterOrChain($filter));
+                    global $container;
+
+                    /** @var AsseticFactory $factory */
+                    $factory = $container['assetic.factory'];
+
+					$filters = array($factory->createFilterOrChain($filter));
 				}
 				else {
 					$filters = array();
@@ -69,26 +79,26 @@ class Hooks
 
 				// add yaml addons
 				$addons = deserialize($objLayout->xyaml_addons, true);
-				$this->addFiles($addons, $GLOBALS['YAML_ADDONS'], $path, $useSass, $filters);
+				$this->addFiles($objPage, $objLayout, $addons, $GLOBALS['YAML_ADDONS'], $path, $useSass, $filters);
 
 				// add yaml forms
 				$forms = deserialize($objLayout->xyaml_forms, true);
-				$this->addFiles($forms, $GLOBALS['YAML_FORMS'], $path, $useSass, $filters);
+				$this->addFiles($objPage, $objLayout, $forms, $GLOBALS['YAML_FORMS'], $path, $useSass, $filters);
 
 				// add yaml navigation
 				$navigations = deserialize($objLayout->xyaml_navigation, true);
-				$this->addFiles($navigations, $GLOBALS['YAML_NAVIGATION'], $path, $useSass, $filters);
+				$this->addFiles($objPage, $objLayout, $navigations, $GLOBALS['YAML_NAVIGATION'], $path, $useSass, $filters);
 
 				// add yaml print
 				$prints = deserialize($objLayout->xyaml_print, true);
-				$this->addFiles($prints, $GLOBALS['YAML_PRINT'], $path, $useSass, $filters);
+				$this->addFiles($objPage, $objLayout, $prints, $GLOBALS['YAML_PRINT'], $path, $useSass, $filters);
 
 				// add yaml screen
 				$screens = deserialize($objLayout->xyaml_screen, true);
-				$this->addFiles($screens, $GLOBALS['YAML_SCREEN'], $path, $useSass, $filters);
+				$this->addFiles($objPage, $objLayout, $screens, $GLOBALS['YAML_SCREEN'], $path, $useSass, $filters);
 
 				// add yaml base
-				$this->addStyleSheets(array('core/base.css'), $path, $useSass, $filters);
+				$this->addStyleSheets($objPage, $objLayout, array('core/base.css'), $path, $useSass, $filters);
 
 				// add yaml iehacks
 				if ($objLayout->xyaml_iehacks) {
@@ -131,13 +141,13 @@ EOF;
 		return false;
 	}
 
-	protected function addFiles($selectedKey, array $fileSets, $path, $useSass, array $filters)
+	protected function addFiles($objPage, $objLayout, $selectedKey, array $fileSets, $path, $useSass, array $filters)
 	{
 		foreach ($selectedKey as $key) {
 			if (isset($fileSets[$key])) {
 				$config = $fileSets[$key];
 				if (isset($config['css'])) {
-					$this->addStyleSheets($config['css'], $path, $useSass, $filters);
+					$this->addStyleSheets($objPage, $objLayout, $config['css'], $path, $useSass, $filters);
 				}
 				if (isset($config['js'])) {
 					$this->addJavaScripts($config['js'], $path);
@@ -146,8 +156,22 @@ EOF;
 		}
 	}
 
-	protected function addStyleSheets(array $files, $path, $useSass, array $filters)
+	protected function addStyleSheets($objPage, $objLayout, array $files, $path, $useSass, array $filters)
 	{
+        /** @var RenderModeDeterminer $renderModeDeterminer */
+        $renderModeDeterminer = $GLOBALS['container']['theme-plus-render-mode-determiner'];
+
+        $renderMode = $renderModeDeterminer->determineMode();
+
+		/** @var AsseticFactory $asseticFactory */
+		$asseticFactory = $GLOBALS['container']['assetic.factory'];
+
+		// default filter
+		$defaultFilters = $asseticFactory->createFilterOrChain($objLayout->asseticStylesheetFilter, RenderMode::DESIGN == $renderMode);
+
+        /** @var EventDispatcherInterface $eventDispatcher */
+        $eventDispatcher = $GLOBALS['container']['event-dispatcher'];
+
 		foreach ($files as $file) {
 			if ($useSass) {
 				$file = $this->transformCssToSass($file);
@@ -160,9 +184,21 @@ EOF;
 				TL_ROOT,
 				$file
 			);
+
+            $generateAssetPathEvent = new GenerateAssetPathEvent(
+                $renderMode,
+                $objPage,
+				$objLayout,
+                $asset,
+                $defaultFilters,
+                'css'
+            );
+            $eventDispatcher->dispatch(ThemePlusEvents::GENERATE_ASSET_PATH, $generateAssetPathEvent);
+
+            $asset->setTargetPath($generateAssetPathEvent->getPath());
+
 			array_unshift($GLOBALS['TL_CSS'], $asset);
 		}
-
 	}
 
 	protected function addJavaScripts(array $files, $path)
